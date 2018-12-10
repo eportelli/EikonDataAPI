@@ -59,7 +59,6 @@ namespace ConsoleApp4
         public static SqlConnection getConnection()
         {
             SqlConnection myConnection = new SqlConnection();
-            //myConnection.ConnectionString = "Server = tcp:mtweb3db.database.windows.net,1433; Initial Catalog = mtweb3db; Persist Security Info = False; User ID = MICAdmin; Password = Malta01!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;" ;
             myConnection.ConnectionString = ConfigurationManager.ConnectionStrings["TRData"].ConnectionString;           
             return myConnection;
 
