@@ -42,12 +42,12 @@ namespace ConsoleApp4
                            //check the latest date and time value stored in the database
                             SqlCommand cmd = new SqlCommand(query, myConnection);
                             cmd.Parameters.AddWithValue("@Ric", RetData[0].Value);
-                            cmd.Parameters.AddWithValue("@DispName", RetData[1].Value);
-                            cmd.Parameters.AddWithValue("@Last", RetData[2].Value);
-                            cmd.Parameters.AddWithValue("@NetChng", RetData[3].Value);
-                            cmd.Parameters.AddWithValue("@PctChng", RetData[4].Value);
-                            cmd.Parameters.AddWithValue("@Date", RetData[5].Value);
-                            cmd.Parameters.AddWithValue("@UpTime", RetData[6].Value);
+                            cmd.Parameters.AddWithValue("@DispName", RetData[1].Value ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Last", RetData[2].Value ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@NetChng", RetData[3].Value ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@PctChng", RetData[4].Value ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Date", RetData[5].Value ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@UpTime", RetData[6].Value ?? DBNull.Value);
                             cmd.ExecuteNonQuery();
 
                         }
