@@ -23,13 +23,20 @@ namespace ConsoleApp4
         static void Main(string[] args)
         {
 
-            
-            DataRequests dr = new DataRequests();
-            dr.RetrieveData(globals.rics, globals.Fields);
+            try
+            {
+                DataRequests dr = new DataRequests();
+                //dr.RetrieveData(globals.rics, globals.Fields);
+                dr.RetrieveData(globals.rics, globals.Fields);
 
 
-            NewsRequest ns = new NewsRequest();
-            ns.RetrieveNews("TOP/G AND LEN");
+                NewsRequest ns = new NewsRequest();
+                ns.RetrieveNews("TOP/G AND LEN");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Request Error {0}.", ex.Message);
+            }
             Timer t = new System.Threading.Timer(TimerCommand, null, 0, 60000);
 
             Console.Read();
@@ -52,7 +59,8 @@ namespace ConsoleApp4
         public static SqlConnection getConnection()
         {
             SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Server = tcp:mtweb3db.database.windows.net,1433; Initial Catalog = mtweb3db; Persist Security Info = False; User ID = MICAdmin; Password = Malta01!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;" ;
+            //myConnection.ConnectionString = "Server = tcp:mtweb3db.database.windows.net,1433; Initial Catalog = mtweb3db; Persist Security Info = False; User ID = MICAdmin; Password = Malta01!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;" ;
+            myConnection.ConnectionString = ConfigurationManager.ConnectionStrings["TRData"].ConnectionString;           
             return myConnection;
 
 
@@ -60,13 +68,21 @@ namespace ConsoleApp4
 
         private static void TimerCommand(Object o)
         {
-            NewsRequest nr = new NewsRequest();
-            Console.WriteLine("Checking News : {0}", DateTime.Now.ToString());
-            nr.RetrieveNews("TOP/G AND LEN");
+            try
+            {
+                NewsRequest nr = new NewsRequest();
+                Console.WriteLine("Checking News : {0}", DateTime.Now.ToString());
+                nr.RetrieveNews("TOP/G AND LEN");
 
-            DataRequests dr = new DataRequests();
-            dr.RetrieveData(globals.rics, globals.Fields);
-            Console.WriteLine("Checking and updating data : {0}", DateTime.Now.ToString());
+                DataRequests dr = new DataRequests();
+                dr.RetrieveData(globals.rics, globals.Fields);
+                Console.WriteLine("Checking and updating data : {0}", DateTime.Now.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error timer {0}", ex.Message);
+            }
         }
 
     }
