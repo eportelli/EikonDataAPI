@@ -24,8 +24,8 @@ namespace ConsoleApp4
             {
                 var data = eikon.GetDataRaw(RicCodes, FieldList);
                 var payload = JsonConvert.DeserializeObject<DataResponse>(data);
-
-                using (SqlConnection myConnection = Program.getConnection())
+                
+               using (SqlConnection myConnection = Program.getConnection())
                 {
                     if (myConnection.State == ConnectionState.Closed)
                     {
@@ -33,7 +33,7 @@ namespace ConsoleApp4
                     }
                     string query = "INSERT INTO dbo.ReutersData (Ric, DispName, Last, NetChng, PctChng, Date, UpTime) " +
                        "Values (@Ric, @DispName, @Last, @NetChng, @PctChng, @Date, @UpTime)";
-                    for (int a = 1; a <= payload.totalRowsCount; a++)
+                    for (int a = 0; a < payload.data.Count; a++)
                     {
                         try
                         {
@@ -53,7 +53,7 @@ namespace ConsoleApp4
                         }
                         catch (SqlException ex)
                         {
-                            Console.WriteLine("SQL Exception : {0}", ex.ErrorCode.ToString());
+                            Console.WriteLine("SQL Exception on {0} : {1}", a, ex.ErrorCode.ToString());
                             break;
                         }
                     }

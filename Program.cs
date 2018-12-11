@@ -29,6 +29,13 @@ namespace ConsoleApp4
                 //dr.RetrieveData(globals.rics, globals.Fields);
                 dr.RetrieveData(globals.rics, globals.Fields);
 
+                DataRequests drFX = new DataRequests();
+                //dr.RetrieveData(globals.rics, globals.Fields);
+                drFX.RetrieveData(globals.ricsFX, globals.FieldsFX);
+
+                DataRequests drINDX = new DataRequests();
+                //dr.RetrieveData(globals.rics, globals.Fields);
+                drINDX.RetrieveData(globals.ricsINDX, globals.FieldsINDX);
 
                 NewsRequest ns = new NewsRequest();
                 ns.RetrieveNews("TOP/G AND LEN");
@@ -70,12 +77,22 @@ namespace ConsoleApp4
             try
             {
                 NewsRequest nr = new NewsRequest();
-                Console.WriteLine("Checking News : {0}", DateTime.Now.ToString());
                 nr.RetrieveNews("TOP/G AND LEN");
+                Console.WriteLine("Checking News : {0}", DateTime.Now.ToString());
 
                 DataRequests dr = new DataRequests();
                 dr.RetrieveData(globals.rics, globals.Fields);
-                Console.WriteLine("Checking and updating data : {0}", DateTime.Now.ToString());
+                Console.WriteLine("Checking and updating Equity data : {0}", DateTime.Now.ToString());
+
+                DataRequests drFX = new DataRequests();
+                //dr.RetrieveData(globals.rics, globals.Fields);
+                drFX.RetrieveData(globals.ricsFX, globals.FieldsFX);
+                Console.WriteLine("Checking and updating FX data : {0}", DateTime.Now.ToString());
+
+                DataRequests drINDX = new DataRequests();
+                //dr.RetrieveData(globals.rics, globals.Fields);
+                drINDX.RetrieveData(globals.ricsINDX, globals.FieldsINDX);
+                Console.WriteLine("Checking and updating Index data : {0}", DateTime.Now.ToString());
 
             }
             catch (Exception ex)
@@ -150,8 +167,24 @@ public class NewsHeadlinesResponse
             {
                 "TRI.N", "BAC", "IBM.N", "T.N", "VOD.L", "BARC.L", "6758.T"
             };
+        public static List<string> ricsFX = new List<string>
+            {
+                "EUR=", "GBP=", "CHF=", "JPY=", "AUD=", "CAD="
+            };
+        public static List<string> ricsINDX = new List<string>
+            {
+                ".DJI", ".SPX", ".NDX", ".FTSE", ".FCHI", ".GDAXI", ".N225", ".HSI", ".MSETRX"
+            };
 
         public static List<string> Fields = new List<string>
+            {
+                "DSPLY_NAME","TRDPRC_1","NETCHNG_1", "PCTCHNG", "TRADE_DATE", "TRDTIM_1"
+            };
+        public static List<string> FieldsFX = new List<string>
+            {
+                "DSPLY_NAME","MID_PRICE","MID_NET_CH", "PCTCHNG", "ACTIV_DATE", "TIMACT"
+            };
+        public static List<string> FieldsINDX = new List<string>
             {
                 "DSPLY_NAME","TRDPRC_1","NETCHNG_1", "PCTCHNG", "TRADE_DATE", "TRDTIM_1"
             };
